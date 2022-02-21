@@ -1,3 +1,3 @@
 # api-grobr
 
-# Este é o branch principal (main).
+# Este é o branch para desenvolvimento do feature de listening da api.
