@@ -1,6 +1,6 @@
 // find.js
 
-export function buttonPressed(elID) {
+export function findButtonPressed(elID) {
     console.log(`Trying to find which button was pressed...`);
     let tempIndex = 0; let checkID = `buttonDelete${tempIndex}`;
     while (elID != checkID) { // Search for the exact ID.

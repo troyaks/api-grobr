@@ -1,26 +1,26 @@
 // deleteThis.js
 
-import { buttonPressed } from "./find.js";
+import { findButtonPressed } from "./find.js";
 
-export function allData() {
+export function deleteAllData() {
     console.log(`Entered the DeleteAllData function`);
     localStorage.clear(); // Clear everything on Cache
     location.reload(); // Reload the page.
 }
-export function item(el) {
+export function deleteItem(el) {
     console.log(`Starting the deleteTask function`);
     let checkID;
     let tempIndex;
-    [checkID, tempIndex] = buttonPressed(el.id);
+    [checkID, tempIndex] = findButtonPressed(el.id);
     removeTaskFromHTML(checkID);
     removeTaskFromCache(tempIndex);
     return tempIndex;
 }
-export function nextTask(el) {
+export function deleteNextTask(el) {
     console.log(`Deleting the next task...`);
     let checkID;
     let tempIndex;
-    [checkID, tempIndex] = buttonPressed(el.id);
+    [checkID, tempIndex] = findButtonPressed(el.id);
     removeTaskFromHTML(checkID);
     removeTaskFromCache(tempIndex);
 }

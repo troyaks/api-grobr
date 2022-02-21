@@ -1,18 +1,18 @@
 // print.js
 
-import { buttonDelete, paragraph } from "./create.js";
-import { counting } from "./misc.js";
+import { createButtonDelete, createParagraph } from "./create.js";
+import { miscCounting } from "./misc.js";
 
-export function taskOnHTML(task, idCount) {
+export function printTaskOnHTML(task, idCount) {
     console.log(`Printing task on HTML`);
-    deleteButton = buttonDelete; // Fnc to create a delete button
+    deleteButton = createButtonDelete; // Fnc to create a delete button
     if (typeof task.value === 'undefined') {
         // This is for the page initialization when it already has data on cache
-        paragraph(deleteButton, `${task} `);
+        createParagraph(deleteButton, `${task} `);
     }
     else { // This for the webpage when is already running
-        paragraph(deleteButton, `${task.value} `);
+        createParagraph(deleteButton, `${task.value} `);
     }
-    return idCount = counting(idCount); // Just adding "+1" for some parameters.
+    return idCount = miscCounting(idCount); // Just adding "+1" for some parameters.
 }
 

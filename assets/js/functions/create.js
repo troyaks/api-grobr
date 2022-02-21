@@ -1,6 +1,6 @@
 // create.js
 
-export function paragraph(buttonDelete, data, tempIndexID) {
+export function createParagraph(buttonDelete, data, tempIndexID) {
     console.log(`Initializing createParagraph fnc`);
     if (tempIndexID || tempIndexID === 0) {
         console.log(`Creating paragraph when tempIndexID is given`);
@@ -21,7 +21,7 @@ export function paragraph(buttonDelete, data, tempIndexID) {
         console.log(`Created paragraph with index ${idCount} and value ${data}`);
     }
 }
-export function buttonDelete(tempIndexID) {
+export function createButtonDelete(tempIndexID) {
     console.log(`Initializing createButtonDelete function`);
     if (tempIndexID || tempIndexID === 0) {
         console.log(`Creating button when tempIndexID is given`);
