@@ -19,7 +19,7 @@ module.exports = {
             console.log(`Getting ID of next task...`);
             tempButtonDelete = create.buttonDelete((tempIndexFnc+1)); // Get ID of NextTask.
             console.log(`Next task ID is ${tempButtonDelete.id}`);
-            deleteThis.NextTask(tempButtonDelete); // DeleteNext task.
+            deleteThis.nextTask(tempButtonDelete); // DeleteNext task.
             console.log(`Now the counter is in ${tempIndexFnc}`);
             tempIndexFnc++;
             console.log(`Counting +1... Now, let's try again with the counter in ${tempIndexFnc}`);
