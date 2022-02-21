@@ -1,34 +1,28 @@
 // deleteThis.js
 
-const find = require("./find");
+import { buttonPressed } from "./find.js";
 
-module.exports = {
-
-    allData: function() {
-        console.log(`Entered the DeleteAllData function`)
-        localStorage.clear(); // Clear everything on Cache
-        location.reload(); // Reload the page.
-    },
-
-    item: function(el) {
-        console.log(`Starting the deleteTask function`);
-        let checkID;
-        let tempIndex;
-        [checkID, tempIndex] = find.buttonPressed(el.id);
-        removeTaskFromHTML(checkID);
-        removeTaskFromCache(tempIndex);
-        return tempIndex;
-    },
-
-    nextTask: function(el) {
-        console.log(`Deleting the next task...`);
-        let checkID;
-        let tempIndex;
-        [checkID, tempIndex] = find.buttonPressed(el.id);
-        removeTaskFromHTML(checkID);
-        removeTaskFromCache(tempIndex);
-    }
-
+export function allData() {
+    console.log(`Entered the DeleteAllData function`);
+    localStorage.clear(); // Clear everything on Cache
+    location.reload(); // Reload the page.
+}
+export function item(el) {
+    console.log(`Starting the deleteTask function`);
+    let checkID;
+    let tempIndex;
+    [checkID, tempIndex] = buttonPressed(el.id);
+    removeTaskFromHTML(checkID);
+    removeTaskFromCache(tempIndex);
+    return tempIndex;
+}
+export function nextTask(el) {
+    console.log(`Deleting the next task...`);
+    let checkID;
+    let tempIndex;
+    [checkID, tempIndex] = buttonPressed(el.id);
+    removeTaskFromHTML(checkID);
+    removeTaskFromCache(tempIndex);
 }
 
 // Local functions

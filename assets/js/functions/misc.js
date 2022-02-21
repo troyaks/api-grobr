@@ -1,12 +1,7 @@
 // misc.js
 
-
-module.exports = {
-
-    counting: function(idCount) {
-        console.log(`Just counting...`);
-        idCount++;
-        return idCount;
-    }
-
+export function counting(idCount) {
+    console.log(`Just counting...`);
+    idCount++;
+    return idCount;
 }

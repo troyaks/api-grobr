@@ -6,10 +6,10 @@ const taskList = document.querySelector('.taskList');
 const deleteAll = document.querySelector('.deleteAll');
 
 // Fetch function files
-const deleteThis = require('./functions/deleteThis');
-const initialize = require('./functions/initialize');
-const print = require('./functions/print');
-const save = require('./functions/save');
+import { allData, item } from './functions/deleteThis.js';
+import { page } from './functions/initialize.js';
+import { taskOnHTML } from './functions/print.js';
+import { taskOnCache } from './functions/save.js';
 
 let idCount = 0;
 let index; let taskNameOnCache;
@@ -19,7 +19,7 @@ const checkstorageID = typeof Storage; if (checkstorageID === "undefined") { // 
     throw new Error ("Storage not available");
 }
 
-[index, taskNameOnCache] = initialize.page(); // Initialize page parameters.
+[index, taskNameOnCache] = page(); // Initialize page parameters.
 
 document.addEventListener('keyup', function(event) { // Listen to key pressing events.
     if (event.keyCode === 13) {
@@ -27,8 +27,8 @@ document.addEventListener('keyup', function(event) { // Listen to key pressing e
             return; // then just hit return
         }
     console.log(`>>>>>>> Listen to send button activation`);
-    index = save.taskOnCache(task);
-    idCount = print.taskOnHTML(task, idCount);
+    index = taskOnCache(task);
+    idCount = taskOnHTML(task, idCount);
     document.getElementById("text").value = "";
     }
 })
@@ -41,18 +41,18 @@ if (clickElement.classList.contains('send')) { // get event of 'send' when hitin
         return; // then just hit return
     }
     console.log(`>>>>>>> Listen to send button activation`);
-    index = save.taskOnCache(task);
-    idCount = print.taskOnHTML(task, idCount);
+    index = taskOnCache(task);
+    idCount = taskOnHTML(task, idCount);
     document.getElementById("text").value = "";
 }
 
 if (clickElement.classList.contains('deleteAll')) { // get event of 'deleteAll' when hitting 'Delete All' button.
-    deleteThis.allData();
+    allData();
 }
 
 if (clickElement.classList.contains('buttonDelete')) { // get event of 'delete' when hitting delete button of a task.
     console.log(`>>>>>>> Listen to buttonDelete click`);
-    const tempIndex = deleteThis.item(clickElement);
+    const tempIndex = item(clickElement);
     console.log(`refresh the HTML page starting on the Index ${tempIndex}`);
     [idCount, index] = refresh.HTMLnCache(tempIndex);
 }
