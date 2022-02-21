@@ -2,7 +2,7 @@
 const form = document.querySelector('.form');
 const send = document.querySelector('.send');
 const task = document.querySelector('.task');
-const taskList = document.querySelector('.taskList');
+const eventList = document.querySelector('.eventList');
 const deleteAll = document.querySelector('.deleteAll');
 
 // Fetch function files
@@ -21,13 +21,15 @@ const checkstorageID = typeof Storage; if (checkstorageID === "undefined") { // 
 
 [index, taskNameOnCache] = initializePage(); // Initialize initializePage parameters.
 
+alert(`index is ${index} and taskNameOnChache is ${taskNameOnCache}`);
+
 document.addEventListener('keyup', function(event) { // Listen to key pressing events.
     if (event.keyCode === 13) {
         if (!task.value || !/\S/.test(task.value)) { // if the data sent has no input or only blank space
             return; // then just hit return
         }
     console.log(`>>>>>>> Listen to send button activation`);
-    index = saveTaskOnCache(task);
+    index = saveTaskOnCache(task, index);
     idCount = printTaskOnHTML(task, idCount);
     document.getElementById("text").value = "";
     }
@@ -41,7 +43,10 @@ if (clickElement.classList.contains('send')) { // get event of 'send' when hitin
         return; // then just hit return
     }
     console.log(`>>>>>>> Listen to send button activation`);
-    index = saveTaskOnCache(task);
+    alert('>>>>>>> Listen to send button activation');
+    alert(`index going in as ${index}`);
+    index = saveTaskOnCache(task, index);
+    alert(`index going out as ${index}`);
     idCount = printTaskOnHTML(task, idCount);
     document.getElementById("text").value = "";
 }

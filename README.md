@@ -1,3 +1,3 @@
 # api-grobr
 
-# Este é o branch para desenvolvimento do feature de listening da api.
+# Este é o branch para correção de erros de syntaxe, portgues, etc...
