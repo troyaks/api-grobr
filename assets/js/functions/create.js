@@ -1,5 +1,7 @@
 // create.js
 
+const eventList = document.querySelector('.eventList');
+
 export function createParagraph(buttonDelete, data, tempIndexID, idCount) {
     console.log(`Initializing createParagraph fnc`);
     if (tempIndexID || tempIndexID === 0) {
@@ -8,7 +10,7 @@ export function createParagraph(buttonDelete, data, tempIndexID, idCount) {
         paragraph.id = `paragraph${tempIndexID}`; // Give an ID to it.
         paragraph.innerHTML = data; // Give an HTML to it.
         paragraph.appendChild(buttonDelete); // Add a button to it.
-        taskList.appendChild(paragraph); // Add the paragraph to the taskList window.
+        eventList.appendChild(paragraph); // Add the paragraph to the eventList window.
         console.log(`Created paragraph with index ${tempIndexID} and value ${data}`);
     }
     else {
@@ -17,12 +19,12 @@ export function createParagraph(buttonDelete, data, tempIndexID, idCount) {
         paragraph.id = `paragraph${idCount}`; // Give an ID to it.
         paragraph.innerHTML = data; // Give an HTML to it.
         paragraph.appendChild(buttonDelete); // Add a button to it.
-        taskList.appendChild(paragraph); // Add the paragraph to the taskList window.
+        eventList.appendChild(paragraph); // Add the paragraph to the eventList window.
         console.log(`Created paragraph with index ${idCount} and value ${data}`);
     }
 }
-export function createButtonDelete(tempIndexID) {
-    console.log(`Initializing createButtonDelete function`);
+export function createButtonDelete(tempIndexID, idCount) {
+    console.log(`Initializing createButtonDelete function with temIndexID = ${tempIndexID} and idCount = ${idCount}`);
     if (tempIndexID || tempIndexID === 0) {
         console.log(`Creating button when tempIndexID is given`);
         const buttonDelete = document.createElement('button'); // Create a button element.

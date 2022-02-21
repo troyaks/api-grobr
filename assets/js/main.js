@@ -19,7 +19,7 @@ const checkstorageID = typeof Storage; if (checkstorageID === "undefined") { // 
     throw new Error ("Storage not available");
 }
 
-[index, taskNameOnCache] = initializePage(); // Initialize initializePage parameters.
+[index, taskNameOnCache] = initializePage(idCount); // Initialize initializePage parameters.
 
 alert(`index is ${index} and taskNameOnChache is ${taskNameOnCache}`);
 

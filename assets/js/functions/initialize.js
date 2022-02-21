@@ -2,13 +2,13 @@
 
 import { printTaskOnHTML } from "./print.js";
 
-export function initializePage() {
+export function initializePage(idCount) {
     console.log(`Initializing the page...`);
     let tempIndex; let tempTaskNameOnCache = `task-0`;
     if (localStorage.getItem(tempTaskNameOnCache)) { // If an initial task exists on Cache
         tempIndex = 0; // Then Index has to initialize as the first index, which is '0'.
         do { // Print all data on cache
-            printTaskOnHTML(localStorage.getItem(tempTaskNameOnCache));
+            printTaskOnHTML(localStorage.getItem(tempTaskNameOnCache), idCount);
             tempIndex++; tempTaskNameOnCache = `task-${tempIndex}`;
         }
         while (localStorage.getItem(tempTaskNameOnCache));
