@@ -3,7 +3,7 @@
 import { createButtonDelete, createParagraph } from "./create.js";
 import { miscCounting } from "./misc.js";
 
-export function printTaskOnHTML(task, idCount) {
+export function printOnHTML(task, idCount) {
     console.log(`Printing task on HTML with idCount = ${idCount}`);
     const deleteButton = createButtonDelete(null, idCount); // Fnc to create a delete button
     console.log(`Created a delete button with the spec id: ${deleteButton.id}`);
