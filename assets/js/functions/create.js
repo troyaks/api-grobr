@@ -45,3 +45,8 @@ export function createButtonDelete(tempIndexID, idCount) {
     }
 }
 
+/*export function createBodyJSON (...parameters) {
+    arrayParameters = Array.prototype.slice.call(parameters);
+    return JSON.stringify(arrayParameters);
+}*/
+
