@@ -3,7 +3,6 @@
 export async function fetchIt (resource, method, bodyJSON) {
     
     console.log(`Initializing fetch method`);
-  
     let options;
 
     if (method === "GET") {
@@ -12,9 +11,10 @@ export async function fetchIt (resource, method, bodyJSON) {
             "crossDomain": true,
             "method": "GET",
             "headers": {
+                'Accept': 'application/json',
                 "Content-Type": "application/json",
                 },
-                "body": null
+                "body": null,
             }
     }
 
@@ -25,17 +25,18 @@ export async function fetchIt (resource, method, bodyJSON) {
             "method": "PATCH",
             "headers": {
               "Content-Type": "application/json",
-              'Access-Control-Allow-Origin': "http://127.0.0.1:5500/"
             },
-            "body": bodyJSON
+            "body": bodyJSON,
           }
     }
 
     console.log(options);
-    let response;
-    response =  await fetch(resource,options);
-    response = response.json();
-    console.log(response);
-    return response;
-    
+    await fetch(resource,options)
+        .then (res => {
+            console.log(res);
+            return res;
+        })
+        .catch (err => {
+            return err;
+        })
 }

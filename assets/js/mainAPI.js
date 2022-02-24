@@ -10,14 +10,15 @@ if (method === "GET") {
     console.log(`Method used: ${method}`);
     const res = fetchIt(myResource, method); //Fetching method
     printOnHTML(res,null);
+    console.log(res);
 }
 
 if (method === "PATCH") {
     console.log(`Method used: ${method}`);
-    //alert("oi");
     const bodyJSON = JSON.stringify({
-        "subject": "Testando o lil",
-        "tags":["[ANY /D+2/ STQ] INV. SEPARADO","[ANY /D+3/ FSC] NF OK","[ANY /D+5/ STQ] Expedição","[ANY /D+4/ LOG] Coleta Filho", "lil"]
+        "subject": "Testando pra ver se atualiza mesmo com campo abaixo errado",
+        //"tags":["[ANY /D+2/ STQ] INV. SEPARADO","[ANY /D+3/ FSC] NF OK","[ANY /D+5/ STQ] Expedição","[ANY /D+4/ LOG] Coleta Filho", "lil"]
+        "ticket.customFieldValues[92834]": "Teste API"
     }) //"{\"subject\":\"Testando Luan\"}";
     console.log(myResource);
     const res = fetchIt(myResource, method, bodyJSON); //Fetching method
