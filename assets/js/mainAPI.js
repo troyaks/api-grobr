@@ -13,7 +13,9 @@ console.log(bodyRead);
 console.log(myResource);
 let body;
 
-if (method === "PATCH") { body = bodyWrite; };
+if (method === "PATCH") { body = bodyWrite;
+    await fetchIt(myResource, method, body); 
+};
 
 if (method === "GET") { body = bodyRead;
 
