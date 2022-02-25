@@ -1,7 +1,7 @@
 import { fetchIt } from "./functions/fetchMethod.js";
 import { findTicketByID } from "./functions/findTicketBy.js";
 import { printOnHTML } from "./functions/print.js";
-import { JsonToArrayObj, urlToIterable, urlToJSON } from "./functions/x-To-y.js";
+import { arrayToJSON, JsonToArrayObj, urlToIterable, urlToJSON } from "./functions/x-To-y.js";
 
 const bodyWrite = urlToJSON(location.search,'createBodyToWriteParams'); // Take any parameter in the URl that has value (example &id=7402 or &method=PATCH or url=tickets or subject=New+Case, etc...).
 const bodyRead = urlToJSON(location.search,'createBodyToReadParams'); // Take any parameter in the URL that has NO value (example &clients or &subject or &clients.BusinessName, etc...)
@@ -26,7 +26,7 @@ if (method === "GET") { body = bodyRead;
             if (keyBody === keyResponse) {
                 console.log(Object.entries(value));
                 console.log(typeof value);
-                printOnHTML(`${keyBody} : ${value}`);
+                printOnHTML(`${keyBody} : ${arrayToJSON(value)}`);
             }
         }
     }

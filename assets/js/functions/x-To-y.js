@@ -4,8 +4,13 @@
 export function urlToJSON (urlValue, item) { // Turn the URL parameters into JSON
     const iterable = urlToIterable(urlValue); // Create iterable object from URL
     const ArrayObj = iterableObjToArrayObj(iterable, item); // Turn iterable object into an array object containing the URL parameters
-    const stringJSON = JSON.stringify(ArrayObj); // Turn array object into JSON string.
+    const stringJSON = arrayToJSON(ArrayObj); // Turn array object into JSON string.
     return stringJSON;
+}
+
+export function arrayToJSON(array) {
+    const json = JSON.stringify(array);
+    return json;
 }
 
 export function urlToIterable (urlValue) { //Take the parameters from URL and resolve them into Iterable object.

@@ -22,13 +22,6 @@ export async function fetchIt (resource, method, bodyJSON) {
         let res = await fetch(resource,options); //Get the server response
         let resOBJ = await res.json(); //Get the data from server response and turn it into a JS Object where we can read further parameters. 
         return resOBJ
-        
-        /* console.log(`Server response is:`,res);
-        console.log(`This is the API response data turned into a JS Object:`,resOBJ);
-        printOnHTML(
-            JSON.stringify(resOBJ), //Turn the Object we want to print into plain JSON text
-            null
-        ); */
     }
 
     if (method === "PATCH") {
