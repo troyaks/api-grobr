@@ -32,4 +32,12 @@ if (method === "GET") { body = bodyRead;
     }
 };
 
+/*
+
+https://api.movidesk.com/public/v1/tickets?token=39cbc1bb-ffa6-491e-84f4-eb9687902e5e&$select=clients,id,subject&$filter=id eq 7402&$expand=clients($select=businessName)
+
+https://api.movidesk.com/public/v1/tickets?token=39cbc1bb-ffa6-491e-84f4-eb9687902e5e&$filter=id eq 7402&$select=clients&$expand=clients($select=businessName)
+
+*/
+
 
