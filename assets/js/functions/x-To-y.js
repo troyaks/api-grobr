@@ -8,11 +8,15 @@ export function urlToJSON (urlValue, item) { // Turn the URL parameters into JSO
     return stringJSON;
 }
 
-
 export function urlToIterable (urlValue) { //Take the parameters from URL and resolve them into Iterable object.
     const urlIterable = new URLSearchParams(urlValue); // Take the parameters from URL and resolve them into constructor body request.
     const entries = urlIterable.entries(); // Turn the constructor result into a Iterable object.
     return entries;
+}
+
+export function JsonToArrayObj(JsonString) {
+    const ArrayObj = JSON.parse(JsonString);
+    return ArrayObj;
 }
 
 export function iterableObjToArrayObj(iterableObj, returnableItem) { // Take the iterable object and turn it into an array object containing the parameters.
