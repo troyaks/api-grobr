@@ -1,0 +1,42 @@
+// x-To-y.js
+
+
+export function urlToJSON (urlValue, item) { // Turn the URL parameters into JSON
+    const iterable = urlToIterable(urlValue); // Create iterable object from URL
+    const ArrayObj = iterableObjToArrayObj(iterable, item); // Turn iterable object into an array object containing the URL parameters
+    const stringJSON = JSON.stringify(ArrayObj); // Turn array object into JSON string.
+    return stringJSON;
+}
+
+
+export function urlToIterable (urlValue) { //Take the parameters from URL and resolve them into Iterable object.
+    const urlIterable = new URLSearchParams(urlValue); // Take the parameters from URL and resolve them into constructor body request.
+    const entries = urlIterable.entries(); // Turn the constructor result into a Iterable object.
+    return entries;
+}
+
+export function iterableObjToArrayObj(iterableObj, returnableItem) { // Take the iterable object and turn it into an array object containing the parameters.
+    let resultWrite = {};
+    let resultRead = {};
+    for(const [key, value] of iterableObj) { // each 'entry' in the URL is a [key, value] tupple, so we will loop over all of them.
+        if (key === 'id' || key === 'url' || key === 'method') { 
+            // in case we are looping over the id, url or method parameters, we will just do nothing
+            } 
+            else { // Elsewise, add the value to the array object called 'result' as shown below.
+                if (value === "") { // This is the 'result' array object for 'Reading Commands' such as GET
+                    resultRead[key] = value;
+                }
+                else { // This is the 'result' array object for 'Writting Commands' such as PATCH or POST.
+                    resultWrite[key] = value;
+                }
+                
+            }
+        }
+    if (returnableItem === 'createBodyToWriteParams') {
+        return resultWrite;
+        }
+    if (returnableItem === 'createBodyToReadParams') {
+        return resultRead;
+    }
+}
+
