@@ -26,7 +26,7 @@ if (method === "GET") { body = bodyRead;
             if (keyBody === keyResponse) {
                 console.log(Object.entries(value));
                 console.log(typeof value);
-                printOnHTML(`${keyBody} : ${arrayToJSON(value)}`);
+                printOnHTML(`${keyBody}[0] : ${arrayToJSON(value[0])}`);
             }
         }
     }
@@ -36,7 +36,11 @@ if (method === "GET") { body = bodyRead;
 
 https://api.movidesk.com/public/v1/tickets?token=39cbc1bb-ffa6-491e-84f4-eb9687902e5e&$select=clients,id,subject&$filter=id eq 7402&$expand=clients($select=businessName)
 
-https://api.movidesk.com/public/v1/tickets?token=39cbc1bb-ffa6-491e-84f4-eb9687902e5e&$filter=id eq 7402&$select=clients&$expand=clients($select=businessName)
+https://api.movidesk.com/public/v1/tickets?token=39cbc1bb-ffa6-491e-84f4-eb9687902e5e&$filter=id eq 7402&$select=clients&$expand=clients($select=businessName eq 0)
+
+https://api.movidesk.com/public/v1/tickets?token=39cbc1bb-ffa6-491e-84f4-eb9687902e5e&$filter=id eq 7402&$select=clients&$expand=clients($filter=id eq '460113777')
+
+https://api.movidesk.com/public/v1/tickets?token=39cbc1bb-ffa6-491e-84f4-eb9687902e5e&$filter=id eq 7402&$select=clients&$expand=clients($select=id)
 
 */
 
