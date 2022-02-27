@@ -13,6 +13,11 @@ export function arrayToJSON(array) {
     return json;
 }
 
+export function arrayToIterable(array) {
+    const iterable = Object.entries(array);
+    return iterable;
+}
+
 export function urlToIterable (urlValue) { //Take the parameters from URL and resolve them into Iterable object.
     const urlIterable = new URLSearchParams(urlValue); // Take the parameters from URL and resolve them into constructor body request.
     const entries = urlIterable.entries(); // Turn the constructor result into a Iterable object.
@@ -30,7 +35,7 @@ export function iterableObjToArrayObj(iterableObj, returnableItem) { // Take the
     for(const [key, value] of iterableObj) { // each 'entry' in the URL is a [key, value] tupple, so we will loop over all of them.
         if (key === 'id' || key === 'url' || key === 'method') { 
             // in case we are looping over the id, url or method parameters, we will just do nothing
-            } 
+        } 
             else { // Elsewise, add the value to the array object called 'result' as shown below.
                 if (value === "") { // This is the 'result' array object for 'Reading Commands' such as GET
                     resultRead[key] = value;
@@ -42,9 +47,13 @@ export function iterableObjToArrayObj(iterableObj, returnableItem) { // Take the
             }
         }
     if (returnableItem === 'createBodyToWriteParams') {
+        console.log('Array to serve as parameters to be written:')
+        console.log(resultWrite);
         return resultWrite;
         }
     if (returnableItem === 'createBodyToReadParams') {
+        console.log('Array to serve as parameters to be read:')
+        console.log(resultRead);
         return resultRead;
     }
 }

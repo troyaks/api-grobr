@@ -2,6 +2,7 @@
 
 import { createButtonDelete, createParagraph } from "./create.js";
 import { miscCounting } from "./misc.js";
+import { arrayToIterable, arrayToJSON, JsonToArrayObj } from "./x-To-y.js";
 
 export function printOnHTML(task, idCount) {
     console.log(`Printing task on HTML with idCount = ${idCount}`);
@@ -17,5 +18,15 @@ export function printOnHTML(task, idCount) {
         createParagraph(deleteButton, `${task.value} `, null, idCount);
     }
     return idCount = miscCounting(idCount); // Just adding "+1" for some parameters.
+}
+
+export function printResponse(resObj,bodyJSON) {
+    for (const [keyResponse,value] of arrayToIterable(resObj)) {
+        for (const [keyBody] of arrayToIterable(JsonToArrayObj(bodyJSON))) {
+            if (keyBody === keyResponse) {
+                printOnHTML(`${keyBody} : ${arrayToJSON(value)}`);
+            }
+        }
+    }
 }
 
