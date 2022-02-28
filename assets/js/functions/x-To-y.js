@@ -1,5 +1,7 @@
 // x-To-y.js
 
+import { findOnString } from "./find.js";
+
 
 export function urlToJSON (urlValue, item) { // Turn the URL parameters into JSON
     const iterable = urlToIterable(urlValue); // Create iterable object from URL
@@ -18,7 +20,7 @@ export function arrayToIterable(array) {
     return iterable;
 }
 
-export function urlToIterable (urlValue) { //Take the parameters from URL and resolve them into Iterable object.
+export function urlToIterable (urlValue) { // Take the parameters from URL and resolve them into Iterable object.
     const urlIterable = new URLSearchParams(urlValue); // Take the parameters from URL and resolve them into constructor body request.
     const entries = urlIterable.entries(); // Turn the constructor result into a Iterable object.
     return entries;
@@ -37,23 +39,22 @@ export function iterableObjToArrayObj(iterableObj, returnableItem) { // Take the
             // in case we are looping over the id, url or method parameters, we will just do nothing
         } 
             else { // Elsewise, add the value to the array object called 'result' as shown below.
-                if (value === "") { // This is the 'result' array object for 'Reading Commands' such as GET
+                if (value === "") { // This is the 'result' array object for 'Reading Commands' such as GET.
+                    findOnString(key,'.');
                     resultRead[key] = value;
                 }
                 else { // This is the 'result' array object for 'Writting Commands' such as PATCH or POST.
                     resultWrite[key] = value;
-                }
-                
+                } 
             }
         }
     if (returnableItem === 'createBodyToWriteParams') {
-        console.log('Array to serve as parameters to be written:')
+        console.log('Array to serve as parameters to be written:');
         console.log(resultWrite);
         return resultWrite;
-        }
+    }
     if (returnableItem === 'createBodyToReadParams') {
-        console.log('Array to serve as parameters to be read:')
-        console.log(resultRead);
+        console.log('Array to serve as parameters to be read: \n', resultRead);
         return resultRead;
     }
 }

@@ -4,9 +4,7 @@ import { printOnHTML } from "./print.js";
 import { arrayToIterable } from "./x-To-y.js";
 
 export async function fetchResponse (resource, method, bodyJSON) {
-    
     console.log(`Initializing FETCH API`);
-    
     let options;
 
     if (method === "GET" && !bodyJSON) {
@@ -20,11 +18,13 @@ export async function fetchResponse (resource, method, bodyJSON) {
                 "Content-Type": "application/json",
                 },
             };
-        console.log(`The option list is:`, options);
+        console.log(`The option list is: \n`, options);
+        console.log(`Trying connection...`);
         let res = await fetch(resource,options); // Get the server response
-        let resOBJ = await res.json(); // Get the data from server response and turn it into a JS Object where we can read further parameters. 
-        console.log('Server has returned', arrayToIterable(resOBJ));
-        return resOBJ
+        console.log(res);
+        let resOBJ = await res.json(); // Resolve the promise and turn it into a JS Object where we can read further parameters. 
+        console.log('Resolved the promise object: \n', arrayToIterable(resOBJ));
+        return resOBJ;
     }
 
     if (method === "PATCH") {
@@ -38,6 +38,7 @@ export async function fetchResponse (resource, method, bodyJSON) {
             "body": bodyJSON,
         }
         console.log(`The option list is:`, options);
+        console.log(`Trying connection...`);
         await fetch(resource,options)
         .then (res => {
             console.log('Success! Server response is', res);

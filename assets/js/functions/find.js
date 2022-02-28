@@ -27,4 +27,32 @@ export function findResourceFromURL () {
     return ticketResourcePath;
 }
 
+export function findOnString(string,toBeFound,option) {
+
+    let result; let regex; let i=0; let indexIterableOBJ = {}; let valueIterableOBJ = {}; // Creating variables
+    if (toBeFound === '.') {regex = new RegExp(`\\${toBeFound}`,'gi');} // 'if condition' to catch the search of '.' (point);
+    else {regex = new RegExp(`${toBeFound}`,'gi');} 
+
+    while ((result = regex.exec(string)) !== null) { // While loop to catch all items to be found.
+        if (result.index === regex.lastIndex) { // This is necessary to avoid infinite loops with zero-width matches
+            regex.lastIndex++;
+        }
+        result.forEach(() => { // Finding the resultant 'index' and 'value' for each 'true' result.
+            indexIterableOBJ[i] = result.index; // Iterable object to store all indexes.
+            valueIterableOBJ[i] = result[0]; // Iterable object to store all values.
+            i++;
+        });
+    }
+    if (option === 'index') { // Return the iterable object containing the indexes
+        return indexIterableOBJ;
+    }
+    if (option === 'value') { // Return the iterable object containing the values
+        return valueIterableOBJ;
+    }
+    /*
+    console.log(`Input: ${string} \n Item to be found: '${toBeFound}' \n Array of itens found [key, value]: \n`, indexIterableOBJ);
+    console.log('Values found [key,value]:\n', valueIterableOBJ);
+    */
+}
+
 

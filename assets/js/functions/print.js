@@ -1,6 +1,7 @@
 // print.js
 
 import { createButtonDelete, createParagraph } from "./create.js";
+import { findOnString } from "./find.js";
 import { miscCounting } from "./misc.js";
 import { arrayToIterable, arrayToJSON, JsonToArrayObj } from "./x-To-y.js";
 
