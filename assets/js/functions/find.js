@@ -1,6 +1,6 @@
 // find.js
 
-import { urlToIterable } from "./x-To-y.js";
+import { arrayToIterable, urlToIterable } from "./x-To-y.js";
 
 export function findButtonPressed(elID) {
     console.log(`Trying to find which button was pressed...`);
@@ -44,15 +44,20 @@ export function findOnString(string,toBeFound,option) {
         });
     }
     if (option === 'index') { // Return the iterable object containing the indexes
+        indexIterableOBJ = arrayToIterable(indexIterableOBJ);
         return indexIterableOBJ;
     }
     if (option === 'value') { // Return the iterable object containing the values
+        valueIterableOBJ = arrayToIterable(valueIterableOBJ);
         return valueIterableOBJ;
     }
-    /*
-    console.log(`Input: ${string} \n Item to be found: '${toBeFound}' \n Array of itens found [key, value]: \n`, indexIterableOBJ);
-    console.log('Values found [key,value]:\n', valueIterableOBJ);
-    */
+}
+
+export function findSizeOfObject(obj) {
+    /* While some JS objects (arguments, for example)
+    support length property, those created with object literal notation do not.
+    Therefore, this function is to find size of objects that do not support lenght property */
+    return Object.keys(obj).length;
 }
 
 

@@ -1,6 +1,7 @@
 // x-To-y.js
 
-import { findOnString } from "./find.js";
+import { createIterableFromString } from "./create.js";
+import { findOnString, findSizeOfObject } from "./find.js";
 
 
 export function urlToJSON (urlValue, item) { // Turn the URL parameters into JSON
@@ -32,30 +33,45 @@ export function JsonToArrayObj(JsonString) {
 }
 
 export function iterableObjToArrayObj(iterableObj, returnableItem) { // Take the iterable object and turn it into an array object containing the parameters.
-    let resultWrite = {};
-    let resultRead = {};
-    for(const [key, value] of iterableObj) { // each 'entry' in the URL is a [key, value] tupple, so we will loop over all of them.
-        if (key === 'id' || key === 'url' || key === 'method') { 
-            // in case we are looping over the id, url or method parameters, we will just do nothing
-        } 
-            else { // Elsewise, add the value to the array object called 'result' as shown below.
-                if (value === "") { // This is the 'result' array object for 'Reading Commands' such as GET.
-                    findOnString(key,'.');
-                    resultRead[key] = value;
+    if (returnableItem === 'nonEmptyValues') {
+        let resultNonEmpty = {};
+        for (const [key,value] of iterableObj) { // Each 'entry' in the URL is a [key, value] tupple, so we will loop over all of them.
+            if (value !== "" && key !== 'id' && key !== 'url' && key !== 'method') {
+                const iterableOfKey = createIterableFromString(key,'.');
+                if (findSizeOfObject(iterableOfKey) > 1) {
+                    console.log(`This 'key' element points to other properties: ${key}`);
                 }
-                else { // This is the 'result' array object for 'Writting Commands' such as PATCH or POST.
-                    resultWrite[key] = value;
-                } 
+                resultNonEmpty[key] = value;
             }
         }
-    if (returnableItem === 'createBodyToWriteParams') {
         console.log('Array to serve as parameters to be written:');
-        console.log(resultWrite);
-        return resultWrite;
+        console.log(resultNonEmpty);
+        return resultNonEmpty;
     }
-    if (returnableItem === 'createBodyToReadParams') {
-        console.log('Array to serve as parameters to be read: \n', resultRead);
-        return resultRead;
+    if (returnableItem === 'emptyValues') {
+        let resultEmpty = {};
+        for (const [key,value] of iterableObj) { // Each 'entry' in the URL is a [key, value] tupple, so we will loop over all of them.
+            if (value === "") {
+                const iterableOfKey = createIterableFromString(key,'.');
+                if (findSizeOfObject(iterableOfKey) > 1) {
+                    console.log(`This 'key' element points to other properties: ${key}`);
+                }
+                resultEmpty[key] = value;
+            }
+        }
+        resultEmpty['id'] = "";
+        console.log('Array to serve as parameters to be read: \n', resultEmpty);
+        return resultEmpty;
+    }
+    if (!returnableItem) {
+        let result = {};
+        for (const [key,value] of iterableObj) { // Each 'entry' in the URL is a [key, value] tupple, so we will loop over all of them.
+            if (key === 'id' || key === 'url' || key === 'method') {
+                result[key] = value;
+            }
+        console.log('Array to serve as parameters: \n', result);
+        return result;   
+        }
     }
 }
 

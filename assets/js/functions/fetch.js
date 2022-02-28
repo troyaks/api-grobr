@@ -21,9 +21,11 @@ export async function fetchResponse (resource, method, bodyJSON) {
         console.log(`The option list is: \n`, options);
         console.log(`Trying connection...`);
         let res = await fetch(resource,options); // Get the server response
-        console.log(res);
+        console.log('Server response:\n', res);
+        console.log('Waiting promise to be resolved...')
         let resOBJ = await res.json(); // Resolve the promise and turn it into a JS Object where we can read further parameters. 
-        console.log('Resolved the promise object: \n', arrayToIterable(resOBJ));
+        console.log(Object.getOwnPropertyNames(resOBJ));
+        console.log('Promise object resolved: \n', arrayToIterable(resOBJ));
         return resOBJ;
     }
 

@@ -1,5 +1,8 @@
 // create.js
 
+import { findSizeOfObject } from "./find.js";
+import { arrayToIterable } from "./x-To-y.js";
+
 const eventList = document.querySelector('.eventList');
 
 export function createParagraph(buttonDelete, data, tempIndexID, idCount) {
@@ -45,8 +48,17 @@ export function createButtonDelete(tempIndexID, idCount) {
     }
 }
 
-/*export function createBodyJSON (...parameters) {
-    arrayParameters = Array.prototype.slice.call(parameters);
-    return JSON.stringify(arrayParameters);
-}*/
+export function createIterableFromString (string,parameter) { 
+    // Find all parameters and create array based on them. 
+    // Example (parameter='.'): clients.value.id turns into {clients, value, id}
+    
+    let regex;
+    if (parameter === '.') {regex = new RegExp(`\\${parameter}`,'gi')}
+    else {regex = new RegExp(`${parameter}`,'gi')}
+    let result;
+    result = string.split(regex);
+    result = arrayToIterable(result);
+    console.log(result);
+    return result;
+}
 

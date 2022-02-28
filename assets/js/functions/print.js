@@ -22,9 +22,9 @@ export function printOnHTML(task, idCount) {
 }
 
 export function printResponse(resObj,bodyJSON) {
-    for (const [keyResponse,value] of arrayToIterable(resObj)) {
-        for (const [keyBody] of arrayToIterable(JsonToArrayObj(bodyJSON))) {
-            if (keyBody === keyResponse) {
+    for (const [keyResponse,value] of arrayToIterable(resObj)) { // Loop over resjOBJ
+        for (const [keyBody] of arrayToIterable(JsonToArrayObj(bodyJSON))) { // Loop over bodyJSON
+            if (keyBody === keyResponse) { // if body equals response
                 printOnHTML(`${keyBody} : ${arrayToJSON(value)}`);
             }
         }
