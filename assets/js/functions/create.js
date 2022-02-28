@@ -58,7 +58,6 @@ export function createIterableFromString (string,parameter) {
     let result;
     result = string.split(regex);
     result = arrayToIterable(result);
-    console.log(result);
     return result;
 }
 

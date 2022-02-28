@@ -34,7 +34,7 @@ export function JsonToArrayObj(JsonString) {
 
 export function iterableObjToArrayObj(iterableObj, returnableItem) { // Take the iterable object and turn it into an array object containing the parameters.
     if (returnableItem === 'nonEmptyValues') {
-        let resultNonEmpty = {};
+        let resultNonEmpty = new Array();
         for (const [key,value] of iterableObj) { // Each 'entry' in the URL is a [key, value] tupple, so we will loop over all of them.
             if (value !== "" && key !== 'id' && key !== 'url' && key !== 'method') {
                 const iterableOfKey = createIterableFromString(key,'.');
@@ -49,12 +49,13 @@ export function iterableObjToArrayObj(iterableObj, returnableItem) { // Take the
         return resultNonEmpty;
     }
     if (returnableItem === 'emptyValues') {
-        let resultEmpty = {};
+        let resultEmpty = new Array();
         for (const [key,value] of iterableObj) { // Each 'entry' in the URL is a [key, value] tupple, so we will loop over all of them.
             if (value === "") {
-                const iterableOfKey = createIterableFromString(key,'.');
-                if (findSizeOfObject(iterableOfKey) > 1) {
+                if (findSizeOfObject(createIterableFromString(key,'.')) > 1) { // Check if the 'key' element points to other object properties
                     console.log(`This 'key' element points to other properties: ${key}`);
+                    const fixedKey = stringToNestedObj(key,'');
+                    console.log(fixedKey);
                 }
                 resultEmpty[key] = value;
             }
@@ -66,7 +67,7 @@ export function iterableObjToArrayObj(iterableObj, returnableItem) { // Take the
     if (!returnableItem) {
         let result = {};
         for (const [key,value] of iterableObj) { // Each 'entry' in the URL is a [key, value] tupple, so we will loop over all of them.
-            if (key === 'id' || key === 'url' || key === 'method') {
+            if (key !== 'id' && key !== 'url' && key !== 'method') {
                 result[key] = value;
             }
         console.log('Array to serve as parameters: \n', result);
@@ -74,4 +75,21 @@ export function iterableObjToArrayObj(iterableObj, returnableItem) { // Take the
         }
     }
 }
+
+export function stringToNestedObj (path,obj) {
+
+    const reversedPath = path.split('.').reverse(); // Create a path reverse, to start from the end.
+    return iter(reversedPath,obj); // Calls a local function to iterate over all items of reversedPath.
+
+    function iter ([head, ...tail],obj2) {
+        if(!head) {
+            return obj2;
+        }
+        const newObj = {[head]: {...obj2}};
+        return iter(tail, newObj)
+    }
+    
+}
+
+
 
