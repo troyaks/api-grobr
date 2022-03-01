@@ -60,4 +60,13 @@ export function findSizeOfObject(obj) {
     return Object.keys(obj).length;
 }
 
+export function findLastObject(object) {
+    if (typeof object !== 'object') {
+        return object;
+    }
+    for (property in object) {
+        return findLastObject(object[property]);
+    }
+}
+
 

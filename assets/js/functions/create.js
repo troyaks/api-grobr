@@ -1,7 +1,7 @@
 // create.js
 
-import { findSizeOfObject } from "./find.js";
-import { arrayToIterable } from "./x-To-y.js";
+import { findOnString, findSizeOfObject } from "./find.js";
+import { arrayToIterable, iterableObjToArrayObj, stringToNestedObj } from "./x-To-y.js";
 
 const eventList = document.querySelector('.eventList');
 
@@ -59,5 +59,18 @@ export function createIterableFromString (string,parameter) {
     result = string.split(regex);
     result = arrayToIterable(result);
     return result;
+}
+
+export function createNestedPropertyOnObjFromString (obj,string,value) { 
+    /*This functions adds a nested property into a object taking a string as base.
+    Here we suppose the string is somehow written like 'frstProperty.a.b.c'. Therefore, the points '.a.b.c'
+    serves to us as a way to show that the string can turn out to be a nested object.
+    */ 
+    const indexPointsOnText = iterableObjToArrayObj(findOnString(string,'.','index')); // Return an array containing all indexes of '.' (points) on the string 'key'.
+    const firstPoint = indexPointsOnText[0]; // Take the first point.
+    const nextProperties = string.slice(firstPoint); // Cuts the string and returns the rest of the text existing after the index 'first point'
+    const nestedObject = stringToNestedObj(nextProperties,value); // Take the 'key' and create the nested object exactly as 'key' is implying.
+    const firstProperty = string.slice(0,firstPoint); // Cuts the string and returns the rest of the text existing before the index 'first point'
+    return obj[firstProperty] = {...nestedObject}; // Return the entry obj now added with the nested property.
 }
 
