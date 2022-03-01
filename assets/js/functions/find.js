@@ -15,6 +15,8 @@ export function findButtonPressed(elID) {
 
 export function findResourceFromURL () {
     
+    console.log(`-> Resolving ROOT, PATCH and QueryOptions from URL`);
+
     for (const [urlParameter, value] of urlToIterable(location.search)) { window[urlParameter] = value; } // Create global variables in "find.js" based on the entries in the URL.
     
     const parameterID = `${id}`;
@@ -23,6 +25,8 @@ export function findResourceFromURL () {
     const queryOptions = `token=39cbc1bb-ffa6-491e-84f4-eb9687902e5e&id=${parameterID}`;
     
     const ticketResourcePath = `${serviceRootURL}${resourcePatch}?${queryOptions}`;
+
+    console.log('The request will point to:\n',ticketResourcePath);
     
     return ticketResourcePath;
 }

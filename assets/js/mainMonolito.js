@@ -5,7 +5,7 @@ import { findResourceFromURL } from "./functions/find.js";
 import { printResponse } from "./functions/print.js";
 import { arrayToIterable, arrayToJSON, JsonToArrayObj, urlToJSON } from "./functions/x-To-y.js";
 
-const myResource = findResourceFromURL(); console.log('Pointing to',myResource); // Get the resource necessary to implement the API methods.
+const myResource = findResourceFromURL(); // Get the resource necessary to implement the API methods.
 
 if (method === "PATCH") {
     const body = urlToJSON(location.search,'nonEmptyValues'); // Take any parameter in the URl that has value (example &id=7402 or &method=PATCH or url=tickets or subject=New+Case, etc...).
