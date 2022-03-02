@@ -17,7 +17,8 @@ if (method === "PATCH") {
 if (method === "GET") {
     const body = urlToJSON(location.search,'emptyValues'); // Take any parameter in the URL that has NO value (example &clients or &subject or &clients.BusinessName, etc...).
     const responseObj = await fetchResponse(myResource, method); // Applying fetch method and return the response object.
-    /* Print parameters that matches body parameters object at the response object */
+    /* Print parameters that matches (body parameters object) and (response object) */
+    console.log(JsonToArrayObj(body));
     matchItThenDoSomething(responseObj, JsonToArrayObj(body), printResponse);
 };
 

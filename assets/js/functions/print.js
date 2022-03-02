@@ -22,6 +22,6 @@ export function printOnHTML(task, idCount) {
 }
 
 export function printResponse(keyBody,valueRes) {
-    printOnHTML(`${keyBody} : ${valueRes}`);
+    printOnHTML(`${keyBody} : ${valueRes}`,null);
 }
 

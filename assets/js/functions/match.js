@@ -16,12 +16,14 @@ export function matchItThenDoSomething (res,body,doSomething) {
     for (const [keyRes,valueRes] of keysOfResponse) {
         for (const [keyBody,valueBody] of keysOfBody) {
             if (keyBody === keyRes) {
-                if (typeof valueBody === 'object' && typeof valueRes === 'string') {
+                console.log(keyBody,keyRes);
+                console.log(typeof valueBody,typeof valueRes);
+                if (typeof valueBody === 'object' && (typeof valueRes === 'string' || typeof valueRes === 'number')) {
                     /* If the value of respose 'valueRes' has reached its final nested 
                     property but the value in the body 'valueBody' still wants to catch 
                     more nested properties then we will just print the property name 
                     'keyBody' as the 'valyeRes'. */
-                    doSomething(keyBody,valueRes);
+                    doSomething(valueBody,valueRes);
                     /* doSomething function is a callback and it must accept two string parameters
                     as its first two parameters */ 
                 }
@@ -34,7 +36,7 @@ export function matchItThenDoSomething (res,body,doSomething) {
                     /* doSomething function is a callback and it must accept two string parameters
                     as its first two parameters */ 
                 }
-                if (typeof valueBody === 'string' && typeof valueRes === 'string') {
+                if (typeof valueBody === 'string' && (typeof valueRes === 'string' || typeof valueRes === 'number')) {
                     /* If both value of body and value of response are string
                     then we just print then. */
                     doSomething(keyBody,valueRes);
