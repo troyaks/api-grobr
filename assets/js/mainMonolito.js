@@ -2,8 +2,9 @@
 
 import { fetchResponse } from "./functions/fetch.js";
 import { findResourceFromURL } from "./functions/find.js";
-import { printResponse } from "./functions/print.js";
-import { arrayToIterable, arrayToJSON, JsonToArrayObj, urlToJSON } from "./functions/x-To-y.js";
+import { matchItThenDoSomething } from "./functions/match.js";
+import { printOnHTML, printResponse } from "./functions/print.js";
+import { JsonToArrayObj, urlToJSON } from "./functions/x-To-y.js";
 
 const myResource = findResourceFromURL(); // Get the resource necessary to implement the API methods.
 
@@ -16,7 +17,8 @@ if (method === "PATCH") {
 if (method === "GET") {
     const body = urlToJSON(location.search,'emptyValues'); // Take any parameter in the URL that has NO value (example &clients or &subject or &clients.BusinessName, etc...).
     const responseObj = await fetchResponse(myResource, method); // Applying fetch method and return the response object.
-    printResponse(responseObj,body); // Print parameters that we want to read on HTML.
+    /* Print parameters that matches body parameters object at the response object */
+    matchItThenDoSomething(responseObj, JsonToArrayObj(body), printResponse);
 };
 
 

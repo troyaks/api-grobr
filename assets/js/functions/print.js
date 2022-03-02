@@ -21,13 +21,7 @@ export function printOnHTML(task, idCount) {
     return idCount = miscCounting(idCount); // Just adding "+1" for some parameters.
 }
 
-export function printResponse(resObj,bodyJSON) {
-    for (const [keyResponse,value] of arrayToIterable(resObj)) { // Loop over resjOBJ
-        for (const [keyBody] of arrayToIterable(JsonToArrayObj(bodyJSON))) { // Loop over bodyJSON
-            if (keyBody === keyResponse) { // if body equals response
-                printOnHTML(`${keyBody} : ${arrayToJSON(value)}`);
-            }
-        }
-    }
+export function printResponse(keyBody,valueRes) {
+    printOnHTML(`${keyBody} : ${valueRes}`);
 }
 
