@@ -2,20 +2,21 @@
 
 import { createIterableFromString } from "./create.js";
 import { findOnString, findSizeOfObject } from "./find.js";
-import { handleUnwantedCommas } from "./handle.js";
+import { handleUnwantedQuoteMarks } from "./handle.js";
 
 
 export function urlToJSON (urlValue, item) { // Turn the URL parameters into JSON
     console.log(`-> Reading the URL`);
     const iterable = urlToIterable(urlValue); // Create iterable object from URL
     const ArrayObj = iterableObjToArrayObj(iterable, item); // Turn iterable object into an array object containing the URL parameters
-    const stringJSON = arrayToJSON(ArrayObj); // Turn array object into JSON string.
+    let stringJSON = arrayToJSON(ArrayObj); // Turn array object into JSON string.
+    stringJSON = handleUnwantedQuoteMarks(stringJSON); // Handle unwanted quote marks.
     return stringJSON;
 }
 
 export function arrayToJSON(array) {
     let json = JSON.stringify(array);
-    json = handleUnwantedCommas(json);
+    json = handleUnwantedQuoteMarks(json);
     return json;
 }
 
@@ -55,7 +56,6 @@ export function iterableObjToArrayObj(iterableObj, returnableItem) {
                     const firstPoint = indexPointsOnText[0]; // Take the first point.
                     const firstProperty = key.slice(0,firstPoint); // Cuts the string and returns the rest of the text existing before the index 'first point'
                     const nextProperties = key.slice(firstPoint); // Cuts the string and returns the rest of the text existing after the index 'first point'
-                    // const keyCutted = key.slice(firstPoint); // Cuts the string and returns the rest of the text existing after the index 'first point'
                     const nestedObject = stringToNestedObj(nextProperties,value); // Take the 'key' and create the nested object exactly as 'key' is implying.
                     resultNonEmpty[firstProperty] = {...nestedObject}; // Return the value as the fixed nested object.
 
@@ -73,12 +73,24 @@ export function iterableObjToArrayObj(iterableObj, returnableItem) {
         let resultEmpty = {};
         for (const [key,value] of iterableObj) { // Each 'entry' in the URL is a [key, value] tupple, so we will loop over all of them.
             if (value === "") {
-                if (findSizeOfObject(createIterableFromString(key,'.')) > 1) { // Check if the 'key' element points to other object properties
-                    console.log(`This 'key' element points to other properties: ${key}`);
-                    const nestedObject = stringToNestedObj(key,value);
-                    console.log(nestedObject);
+                if (findSizeOfObject(createIterableFromString(key,'.')) > 1) { // Check if the 'key' element points to other object properties, meaning it is a nested object.
+
+                    /*The sequence below adds a nested property into a object taking a string as base.
+                    Here we suppose the string is somehow written like 'frstProperty.a.b.c'. Therefore, the points '.a.b.c'
+                    serves to us as a way to show that the string can turn out to be a nested object.
+                    */
+
+                    const indexPointsOnText = iterableObjToArrayObj(findOnString(key,'.','index')); // Return an array containing all indexes of '.' (points) on the string 'key'.
+                    const firstPoint = indexPointsOnText[0]; // Take the first point.
+                    const firstProperty = key.slice(0,firstPoint); // Cuts the string and returns the rest of the text existing before the index 'first point'
+                    const nextProperties = key.slice(firstPoint); // Cuts the string and returns the rest of the text existing after the index 'first point'
+                    const nestedObject = stringToNestedObj(nextProperties,value); // Take the 'key' and create the nested object exactly as 'key' is implying.
+                    resultEmpty[firstProperty] = {...nestedObject}; // Return the value as the fixed nested object.
+
                 }
-                resultEmpty[key] = value;
+                else {
+                    resultEmpty[key] = value;
+                }
             }
         }
         resultEmpty['id'] = "";
@@ -123,7 +135,8 @@ export function stringToNestedObj (path,obj) {
 
         const newObj = {[head]: {...obj2}}; // creates a new object that has all of the properties of `myObject` copied into it
         
-        return iter(tail, newObj,tempHead,tempObj); 
+        return iter(tail, newObj,tempHead,tempObj);
+
         /* Exaplanation of the Recursive call above: 
         - The [head,...tail] turns out to be the tail object and the tail turns to be the new object created.
         Remember that Always the function hit 'return iter(tail,newObj,...)' it is taking out one property of 'tail' per call since when

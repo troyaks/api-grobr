@@ -37,21 +37,30 @@ export function findOnString(string,toBeFound,option) {
     if (toBeFound === '.') {regex = new RegExp(`\\${toBeFound}`,'gi');} // 'if condition' to catch the search of '.' (point);
     else {regex = new RegExp(`${toBeFound}`,'gi');} 
 
-    while ((result = regex.exec(string)) !== null) { // While loop to catch all items to be found.
-        if (result.index === regex.lastIndex) { // This is necessary to avoid infinite loops with zero-width matches
-            regex.lastIndex++;
-        }
-        result.forEach(() => { // Finding the resultant 'index' and 'value' for each 'true' result.
-            indexIterableOBJ[i] = result.index; // Iterable object to store all indexes.
-            valueIterableOBJ[i] = result[0]; // Iterable object to store all values.
-            i++;
-        });
-    }
     if (option === 'index') { // Return the iterable object containing the indexes
+        while ((result = regex.exec(string)) !== null) { // While loop to catch all items to be found.
+            if (result.index === regex.lastIndex) { // This is necessary to avoid infinite loops with zero-width matches
+                regex.lastIndex++;
+            }
+            result.forEach(() => { // Finding the resultant 'index' for each 'true' result.
+                indexIterableOBJ[i] = result.index; // Iterable object to store all indexes.
+                i++;
+            });
+        }
+
         indexIterableOBJ = arrayToIterable(indexIterableOBJ);
         return indexIterableOBJ;
     }
     if (option === 'value') { // Return the iterable object containing the values
+        while ((result = regex.exec(string)) !== null) { // While loop to catch all items to be found.
+            if (result.index === regex.lastIndex) { // This is necessary to avoid infinite loops with zero-width matches
+                regex.lastIndex++;
+            }
+            result.forEach(() => { // Finding the resultant 'value' for each 'true' result.
+                valueIterableOBJ[i] = result[0]; // Iterable object to store all values.
+                i++;
+            });
+        }
         valueIterableOBJ = arrayToIterable(valueIterableOBJ);
         return valueIterableOBJ;
     }
