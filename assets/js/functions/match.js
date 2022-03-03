@@ -15,9 +15,16 @@ export function matchItThenDoSomething (res,body,doSomething) {
 
     for (const [keyRes,valueRes] of keysOfResponse) {
         for (const [keyBody,valueBody] of keysOfBody) {
+            console.log(valueBody);
+            if (valueBody['all'] && typeof valueBody === 'object' && typeof valueRes === 'object') {
+                // Count how many nested properties are below the 'all' property and discounts one because I don't want to count the first property 'all'
+                const lengthNestedToObj = JSON.stringify(valueBody).match(/[^\\]":/g).length - 1;
+                console.log(JSON.stringify(valueBody));
+                if (lengthNestedToObj > 0) { // If the length is bigger than zero it means there are other properties besides all.
+
+                }    
+            }
             if (keyBody === keyRes) {
-                console.log(keyBody,keyRes);
-                console.log(typeof valueBody,typeof valueRes);
                 if (typeof valueBody === 'object' && (typeof valueRes === 'string' || typeof valueRes === 'number')) {
                     /* If the value of respose 'valueRes' has reached its final nested 
                     property but the value in the body 'valueBody' still wants to catch 
